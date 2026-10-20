@@ -1,0 +1,41 @@
+digraph {
+	User [label=User fillcolor=lightblue shape=oval style=filled]
+	Upload [label="Upload Content
+(Text/Audio/Image/PDF)" fillcolor=lightgray shape=parallelogram style=filled]
+	Preprocess [label="Preprocessing
+(Noise Reduction, Format Conversion)" fillcolor=lightgray shape=parallelogram style=filled]
+	"Model Selection" [label="Select AI Model
+(Based on Content Type)" fillcolor=lightyellow shape=diamond style=filled]
+	Summarization [label="Text Summarization
+(BART/T5)" fillcolor=lightgreen shape=parallelogram style=filled]
+	OCR [label="OCR & Image Processing
+(Tesseract/CRAFT)" fillcolor=lightgreen shape=parallelogram style=filled]
+	Transcription [label="Speech-to-Text
+(Whisper)" fillcolor=lightgreen shape=parallelogram style=filled]
+	NLP [label="NLP Entity Extraction
+(Spacy/Transformers)" fillcolor=lightgreen shape=parallelogram style=filled]
+	Backend [label="Backend Processing
+(Flask + Celery)" fillcolor=lightgray shape=parallelogram style=filled]
+	DB [label="Store Processed Data
+(SQLite Database)" fillcolor=lightpink shape=cylinder style=filled]
+	Dashboard [label="Display Output to User
+(Summaries, Transcriptions, Q&A)" fillcolor=lightblue shape=parallelogram style=filled]
+	"Q&A" [label="User Queries Processed by
+LLM (Llama 2 - Ollama)" fillcolor=lightgreen shape=parallelogram style=filled]
+	User -> Upload
+	Upload -> Preprocess
+	Preprocess -> "Model Selection"
+	"Model Selection" -> Summarization [label=Text]
+	"Model Selection" -> OCR [label="PDF/Image"]
+	"Model Selection" -> Transcription [label=Audio]
+	"Model Selection" -> NLP [label="NLP Processing"]
+	Summarization -> Backend
+	OCR -> Backend
+	Transcription -> Backend
+	NLP -> Backend
+	Backend -> DB
+	Backend -> Dashboard
+	DB -> Dashboard
+	Dashboard -> "Q&A"
+	"Q&A" -> Backend
+}
